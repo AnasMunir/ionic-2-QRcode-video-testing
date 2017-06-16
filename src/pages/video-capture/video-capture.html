@@ -1,0 +1,22 @@
+<!--
+  Generated template for the VideoCapture page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>videoCapture</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button (click)="takeVideo()"> Take a Video </button>
+  <button ion-button (click)="selectVideo()">Select Video to play</button>
+  <button ion-button (click)="choseFile()"> Chose the file </button>
+  
+  <video #ourVideo height="300" width="300" controls></video>
+</ion-content>

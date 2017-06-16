@@ -46,4 +46,8 @@ export class Home {
     video.src = this.videoUrl;
     video.play();
   }
+
+  testVideoCapture() {
+    this.navCtrl.push("VideoCapture")
+  }
 }
