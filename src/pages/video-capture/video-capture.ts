@@ -93,6 +93,9 @@ export class VideoCapture {
       console.log("resolveLocalFilesystemUrl", data);
 
     }, (error) => console.error("this.file.dataDirectory error", error));
+
+    console.log(this.filePath); console.log(this.fileName); console.log(this.localUrl);
+    this.file.checkDir(this.file.dataDirectory, this.fileName).then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesnt exist'));
     
     this.file.resolveLocalFilesystemUrl(this.filePath).then(
       (data) => {
