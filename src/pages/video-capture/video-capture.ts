@@ -63,7 +63,7 @@ export class VideoCapture {
     let video = this.ourVideo.nativeElement;
     let options: CameraOptions = {
       sourceType: 2,
-      mediaType: 1
+      mediaType: 2
 
     };
 
@@ -75,7 +75,7 @@ export class VideoCapture {
 
   choseFile() {
     console.log(this.filePath); console.log(this.fileName); console.log(this.localUrl);
-    this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesnt exist'));
+    this.file.checkDir(this.file.dataDirectory, this.fileName).then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesnt exist'));
     
     this.file.resolveLocalFilesystemUrl(this.filePath).then(
       (data) => {
@@ -94,7 +94,7 @@ export class VideoCapture {
       },
       (error) => console.error(error)
     );
-    this.file.readAsArrayBuffer("/storage/emulated/0/DCIM/Camera/VID_20170616_042241.mp4/", "VID_20170616_042241.mp4")
+    this.file.readAsArrayBuffer(this.fileName, this.fileName)
       .then(
       (success) => {
         console.log("success ", success);
