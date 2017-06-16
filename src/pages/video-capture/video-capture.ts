@@ -62,7 +62,7 @@ export class VideoCapture {
   async selectVideo() {
     let video = this.ourVideo.nativeElement;
     let options: CameraOptions = {
-      sourceType: 2,
+      sourceType: 1,
       mediaType: 1
 
     };
@@ -74,16 +74,33 @@ export class VideoCapture {
   }
 
   choseFile() {
-    console.log(this.filePath); console.log(this.fileName); console.log(this.localUrl);
-    this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesnt exist'));
+    // console.log(this.filePath); console.log(this.fileName); console.log(this.localUrl);
+    
+    this.file.checkDir(this.file.dataDirectory, 'mydir')
+      .then(_ => console.log('Directory exists'))
+      .catch(err => console.log('Directory doesnt exist'));
+
+    // this.file.resolveDirectoryUrl("/DCIM/Camera").then(
+    //   (data) => {
+    //     console.log("resolveDirectoryUrl");
+    //     console.log(data);
+    //   }, (error) => console.error("resolveDirectoryUrl error", error)
+    // );
+    console.log('this.file.applicationDirectory', this.file.applicationDirectory);
+
+    this.file.resolveLocalFilesystemUrl(this.file.dataDirectory)
+    .then((data) => {
+      console.log("resolveLocalFilesystemUrl", data);
+
+    }, (error) => console.error("this.file.dataDirectory error", error));
     
     this.file.resolveLocalFilesystemUrl(this.filePath).then(
       (data) => {
-        console.log(data.toURL());
-        console.log(data.filesystem);
-        console.log(data.nativeURL);
-        console.log(data.name);
-        console.log(data);
+        console.log('data.toURL()', data.toURL());
+        console.log('data.filesystem', data.filesystem);
+        console.log('data.nativeURL', data.nativeURL);
+        console.log('data.name', data.name);
+        console.log('data', data);
         data.getParent((parent) => console.log(parent));
         const fileReader = new FileReader();
 
@@ -94,7 +111,7 @@ export class VideoCapture {
       },
       (error) => console.error(error)
     );
-    this.file.readAsArrayBuffer("/storage/emulated/0/DCIM/Camera/VID_20170616_042241.mp4/", "VID_20170616_042241.mp4")
+    this.file.readAsArrayBuffer("file:///storage/emulated/0/DCIM/Camera/", "VID_20170616_182544.mp4")
       .then(
       (success) => {
         console.log("success ", success);
