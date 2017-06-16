@@ -7,8 +7,19 @@ import { VideoPlayer } from '@ionic-native/video-player';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
-
+import { AngularFireModule, } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from "angularfire2/auth";
 import { MyApp } from './app.component';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyAN2qPKANK-NMHjW8Rn1slqVlH71LohHiw",
+  authDomain: "tkride-user-1481096790043.firebaseapp.com",
+  databaseURL: "https://tkride-user-1481096790043.firebaseio.com",
+  projectId: "tkride-user-1481096790043",
+  storageBucket: "tkride-user-1481096790043.appspot.com",
+  messagingSenderId: "189387222423"
+}
 
 @NgModule({
   declarations: [
@@ -16,7 +27,10 @@ import { MyApp } from './app.component';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,7 +43,7 @@ import { MyApp } from './app.component';
     MediaCapture,
     Camera,
     File,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
