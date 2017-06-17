@@ -7,6 +7,8 @@ import { VideoPlayer } from '@ionic-native/video-player';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 import { AngularFireModule, } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from "angularfire2/auth";
@@ -42,6 +44,7 @@ export const firebaseConfig = {
     VideoPlayer,
     MediaCapture,
     Camera,
+    BarcodeScanner,
     File,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

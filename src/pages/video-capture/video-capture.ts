@@ -143,6 +143,9 @@ export class VideoCapture {
       }
       )
   }
+  testQrCode() {
+    this.navCtrl.push("QrcodeTesting");
+  }
 
   // uploadToFirebase(blob: Blob) {
 
