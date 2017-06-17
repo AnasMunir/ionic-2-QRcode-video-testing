@@ -29,6 +29,7 @@
     "@ionic-native/status-bar": "3.10.2",
     "@ionic-native/video-player": "^3.12.1",
     "@ionic/storage": "2.0.1",
+    "angular2-qrcode": "^2.0.1",
     "angularfire2": "^4.0.0-rc.1",
     "firebase": "^4.1.2",
     "ionic-angular": "3.4.0",

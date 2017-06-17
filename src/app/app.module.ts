@@ -13,6 +13,7 @@ import { AngularFireModule, } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { MyApp } from './app.component';
+import { QRCodeModule } from 'angular2-qrcode';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAN2qPKANK-NMHjW8Rn1slqVlH71LohHiw",
@@ -32,7 +33,8 @@ export const firebaseConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    QRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

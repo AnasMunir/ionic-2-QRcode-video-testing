@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
+import { QRCodeComponent } from 'angular2-qrcode';
 
 @IonicPage()
 @Component({
@@ -8,6 +9,8 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
   templateUrl: 'qrcode-testing.html',
 })
 export class QrcodeTesting {
+
+  qrcodeValue: string = "http://www.nytimes.com";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,7 +26,7 @@ export class QrcodeTesting {
     //   .then(
     //   () => console.log("data", data)
     //   )
-    this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, "")
+    this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, this.qrcodeValue)
       .then(value => console.log(value));
       // .catch(
       // (error) => console.error("error encoding", error)

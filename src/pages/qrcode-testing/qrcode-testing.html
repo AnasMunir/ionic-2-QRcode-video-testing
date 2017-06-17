@@ -17,4 +17,7 @@
   <button ion-button color="danger" (click)="generateBarcode()">
     Generate qr code
   </button>
+  <div>
+    <qr-code [value]="qrcodeValue" [size]="150"></qr-code>
+  </div>
 </ion-content>
