@@ -28,9 +28,23 @@ export class QrcodeTesting {
     //   )
     this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, this.qrcodeValue)
       .then(value => console.log(value));
-      // .catch(
-      // (error) => console.error("error encoding", error)
-      // );
+    // .catch(
+    // (error) => console.error("error encoding", error)
+    // );
+  }
+
+  scanBarcode() {
+    let options: BarcodeScannerOptions = {
+      showFlipCameraButton: true,
+      showTorchButton: true,
+      formats: 'QR_CODE'
+    }
+
+    this.barcodeScanner.scan(options).then((barcodeData) => {
+      console.log("Success! Barcode data is here", barcodeData);
+    }, (err) => {
+      console.error("error scanning", err);
+    });
   }
 
 }
