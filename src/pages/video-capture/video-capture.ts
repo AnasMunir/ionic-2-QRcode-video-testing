@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { MediaCapture, CaptureVideoOptions, MediaFile, CaptureError } from '@ionic-native/media-capture';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 declare var window;
 /**
  * Generated class for the VideoCapture page.
@@ -28,6 +28,7 @@ export class VideoCapture {
     public navParams: NavParams,
     private mediaCapture: MediaCapture,
     private camera: Camera,
+    private plt: Platform,
     private file: File) {
 
     // let storageRef = firebase.storage().ref();
@@ -112,10 +113,24 @@ export class VideoCapture {
     //   },
     //   (error) => console.error(error)
     // );
+    let filePath;
     let path = this.filePath.substring(0, this.filePath.lastIndexOf('/') + 1);
+    let tempPath = path.substring(path.indexOf('e/') + 1, path.lastIndexOf('/') + 1);
+
     let name = this.filePath.substring(this.filePath.lastIndexOf('/') + 1, this.filePath.length);
 
-    this.file.readAsArrayBuffer(path, name)
+    if (this.plt.is('ios')) {
+      filePath = "file://" + tempPath
+    } else {
+      filePath = path;
+    }
+    console.log("this.filepath", this.filePath);
+    console.log("path", path);
+    console.log("filePath", filePath);
+    console.log("name", name);
+
+
+    this.file.readAsArrayBuffer(filePath, name)
       .then(
       (success) => {
         console.log("success ", success);
@@ -129,52 +144,52 @@ export class VideoCapture {
       )
   }
 
-  uploadToFirebase(blob: Blob) {
+  // uploadToFirebase(blob: Blob) {
 
-    let storageRef = firebase.storage().ref()
-    var metadata = {
-      contentType: 'video/mp4 '
-    };
+  //   let storageRef = firebase.storage().ref()
+  //   var metadata = {
+  //     contentType: 'video/mp4 '
+  //   };
 
-    let uploadTask = storageRef.child('videos' + "my_video").put(blob, metadata);
-    // Listen for state changes, errors, and completion of the upload.
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-      (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-          case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log('Upload is paused');
-            break;
-          case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log('Upload is running');
-            break;
-        }
-      }, (error) => {
-        console.error("uploading error", error);
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        //     switch (error.code) {
-        //       case 'storage/unauthorized':
-        //         // User doesn't have permission to access the object
-        //         break;
+  //   let uploadTask = storageRef.child('videos' + "my_video").put(blob, metadata);
+  //   // Listen for state changes, errors, and completion of the upload.
+  //   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+  //     (snapshot) => {
+  //       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+  //       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //       console.log('Upload is ' + progress + '% done');
+  //       switch (snapshot.state) {
+  //         case firebase.storage.TaskState.PAUSED: // or 'paused'
+  //           console.log('Upload is paused');
+  //           break;
+  //         case firebase.storage.TaskState.RUNNING: // or 'running'
+  //           console.log('Upload is running');
+  //           break;
+  //       }
+  //     }, (error) => {
+  //       console.error("uploading error", error);
+  //       // A full list of error codes is available at
+  //       // https://firebase.google.com/docs/storage/web/handle-errors
+  //       //     switch (error.code) {
+  //       //       case 'storage/unauthorized':
+  //       //         // User doesn't have permission to access the object
+  //       //         break;
 
-        //       case 'storage/canceled':
-        //         // User canceled the upload
-        //         break;
+  //       //       case 'storage/canceled':
+  //       //         // User canceled the upload
+  //       //         break;
 
-        // ...
+  //       // ...
 
-        // case 'storage/unknown':
-        //   // Unknown error occurred, inspect error.serverResponse
-        //   break;
-        // }
-      }, () => {
-        // Upload completed successfully, now we can get the download URL
-        var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log("downloadURL", downloadURL)
-      });
-  }
+  //       // case 'storage/unknown':
+  //       //   // Unknown error occurred, inspect error.serverResponse
+  //       //   break;
+  //       // }
+  //     }, () => {
+  //       // Upload completed successfully, now we can get the download URL
+  //       var downloadURL = uploadTask.snapshot.downloadURL;
+  //       console.log("downloadURL", downloadURL)
+  //     });
+  // }
 
 }
